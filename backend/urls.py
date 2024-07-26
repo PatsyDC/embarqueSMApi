@@ -20,6 +20,7 @@ urlpatterns = [
     path('zona-pesca/', ZonaPescaListCreateView.as_view(), name='zona-pesca-create'),
     path('tarifa-costo/', TarifaCostoListCreateView.as_view(), name='tarifa-costo-create'),
     path('tarifa-costo/<int:pk>/', TarifaCostoDetailView.as_view(), name='t_c_detail'),
+    path('tarifa-costo/tarifa/<str:nombre_t>/', TarifaCostoView.as_view(), name='tarifa_costo'),
     path('viveres/', ViveresListCreateView.as_view(), name='viveres-embarcacion-create'),
     path('mescanismo/', MecanismoListCreateView.as_view(), name='mescanismo-i-create'),
     path('mescanismo/<int:pk>/', MecanismoRetrieveUpdateDestroyView.as_view(), name='mescanismo-crud'),

@@ -119,6 +119,20 @@ class TarifaCostoDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TarifasCostos.objects.all()
     serializer_class = TarifasCostosSerializer
 
+class TarifaCostoView(generics.GenericAPIView):
+    queryset = TarifasCostos.objects.all()
+    serializer_class = TarifasCostosSerializer
+
+    def get(self, request, *args, **kwargs):
+        nombre_t = self.kwargs['nombre_t']
+        try:
+            tarifas_costo = TarifasCostos.objects.get(nombre_t=nombre_t)
+            # Utilizamos el campo 'tarifa' del modelo TarifasCostos
+            tarifa = tarifas_costo.tarifa
+            return Response({'tarifa': tarifa}, status=status.HTTP_200_OK)
+        except TarifasCostos.DoesNotExist:
+            return Response({'error': 'Tarifa no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
 #viveres
 class ViveresListCreateView(generics.ListCreateAPIView):
     queryset = Viveres.objects.all()
