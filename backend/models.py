@@ -123,8 +123,16 @@ class FlotaDP(models.Model):
     costo_basico = models.DecimalField(max_digits=9, decimal_places=2) #
     participacion = models.DecimalField(max_digits=9, decimal_places=2) #
     bonificacion = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True) #
-    total_participacion = models.DecimalField(max_digits=9, decimal_places=2)
-    aporte_REP= models.DecimalField(max_digits=9, decimal_places=2)
+    total_participacion = models.DecimalField(max_digits=9, decimal_places=2)#
+    aporte_REP= models.DecimalField(max_digits=9, decimal_places=2)#
+    gratificacion = models.DecimalField(max_digits=9, decimal_places=2)#
+    vacaciones = models.DecimalField(max_digits=9, decimal_places=2)#
+    cts = models.DecimalField(max_digits=9, decimal_places=2)#
+    essalud = models.DecimalField(max_digits=9, decimal_places=2)#
+    senati = models.DecimalField(max_digits=9, decimal_places=2)#
+    SCTR_SAL = models.DecimalField(max_digits=9, decimal_places=2)#
+    SCTR_PEN = models.DecimalField(max_digits=9, decimal_places=2)#
+    poliza_seguro = models.DecimalField(max_digits=9, decimal_places=2)#
     total_tripulacion =  models.DecimalField(max_digits=9, decimal_places=2)
     consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
     total_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
