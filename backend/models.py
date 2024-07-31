@@ -43,25 +43,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.nombrey_apellido
 
-class DiarioDePesca(models.Model):
-    embarcacion = models.IntegerField()  
-    especie = models.IntegerField()
-    fecha = models.DateField()
-    numero_alcance = models.IntegerField()
-    zona_pesca = models.CharField(max_length=255)
-    estrato = models.CharField(max_length=255)
-    profundidad = models.IntegerField()
-    tiempo_efectivo = models.TimeField()
-    rango_talla_inicial = models.IntegerField()
-    rango_talla_final = models.IntegerField()
-    moda = models.IntegerField()
-    porcentaje = models.DecimalField(max_digits=5, decimal_places=2)
-    ar = models.IntegerField()
-    numero = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.embarcacion} - {self.fecha}"
-
 class Embarcaciones(models.Model):
     nombre = models.CharField(max_length=255)
     costo_zarpe = models.DecimalField(max_digits=8, decimal_places=2)
@@ -118,6 +99,7 @@ class FlotaDP(models.Model):
     merluza_descarte = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     otro = models.CharField(max_length=255, null=True, blank=True)
     kilo_otro = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    precio_otro = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True) #
     toneladas_procesadas= models.DecimalField(max_digits=9, decimal_places=2)
     toneladas_recibidas = models.DecimalField(max_digits=9, decimal_places=2)
     costo_basico = models.DecimalField(max_digits=9, decimal_places=2) #
@@ -136,6 +118,7 @@ class FlotaDP(models.Model):
     total_tripulacion =  models.DecimalField(max_digits=9, decimal_places=2)
     consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
     total_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
+    galon_hora = models.DecimalField(max_digits=9, decimal_places=2) #
     consumo_hielo = models.DecimalField(max_digits=9, decimal_places=2)
     total_hielo = models.DecimalField(max_digits=9, decimal_places=2)
     consumo_agua = models.DecimalField(max_digits=9, decimal_places=2)
@@ -151,6 +134,26 @@ class FlotaDP(models.Model):
 
     def __str__(self):
         return f'{self.fecha} - {self.embarcacion} - {self.zona_pesca}'
+
+class DiarioDePesca(models.Model):
+    embarcacion = models.IntegerField()  
+    especie = models.IntegerField()
+    fecha = models.DateField()
+    numero_alcance = models.IntegerField()
+    zona_pesca = models.ForeignKey(ZonaPesca,on_delete=models.CASCADE)
+    estrato = models.CharField(max_length=255)
+    profundidad = models.IntegerField()
+    tiempo_efectivo = models.TimeField()
+    rango_talla_inicial = models.IntegerField()
+    rango_talla_final = models.IntegerField()
+    moda = models.IntegerField()
+    porcentaje = models.DecimalField(max_digits=5, decimal_places=2)
+    ar = models.IntegerField()
+    numero = models.IntegerField()
+    flotaDP_id = models.ForeignKey(FlotaDP,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.embarcacion} - {self.fecha}"
 
 class CostoTripulacion(models.Model):
     costo_basico = models.DecimalField(max_digits=9, decimal_places=2)
