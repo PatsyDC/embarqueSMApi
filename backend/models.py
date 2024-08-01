@@ -147,7 +147,7 @@ class DiarioDePesca(models.Model):
     rango_talla_inicial = models.IntegerField()
     rango_talla_final = models.IntegerField()
     moda = models.IntegerField()
-    porcentaje = models.DecimalField(max_digits=5, decimal_places=2)
+    porcentaje = models.DecimalField(max_digits=9, decimal_places=2)
     ar = models.IntegerField()
     numero = models.IntegerField()
     flotaDP_id = models.ForeignKey(FlotaDP,on_delete=models.CASCADE)
