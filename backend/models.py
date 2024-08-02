@@ -72,19 +72,19 @@ class MecanismosI(models.Model):
 
 class CostoGalonB_05(models.Model):
     fecha = models.DateField()
-    costo = models.DecimalField(max_digits=6, decimal_places=2)
+    costo = models.DecimalField(max_digits=11, decimal_places=3)
 
 class CostoGalonHielo(models.Model):
     fecha = models.DateField()
-    costo = models.DecimalField(max_digits=6, decimal_places=2)
+    costo = models.DecimalField(max_digits=11, decimal_places=3)
 
 class CostoGalonAgua(models.Model):
     fecha = models.DateField()
-    costo = models.DecimalField(max_digits=6, decimal_places=2)
+    costo = models.DecimalField(max_digits=11, decimal_places=3)
 
 class CostoTipoCambio(models.Model):
     fecha = models.DateField()
-    costo = models.DecimalField(max_digits=6, decimal_places=2)
+    costo = models.DecimalField(max_digits=11, decimal_places=3)
 
 class FlotaDP(models.Model):                                                      
     fecha = models.DateField()
