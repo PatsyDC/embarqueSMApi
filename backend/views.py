@@ -186,15 +186,21 @@ class CostoTipoCambioRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPI
     queryset = CostoTipoCambio.objects.all()
     serializer_class = CostoTipoCambioSerializer
 
-# ListCreateAPIView para FlotaDP
+# FlotaDP
 class FlotaDPListCreateView(generics.ListCreateAPIView):
     queryset = FlotaDP.objects.all()
     serializer_class = FlotaDPSerializer
 
-# RetrieveUpdateDestroyAPIView para FlotaDP
+
 class FlotaDPRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FlotaDP.objects.all()
     serializer_class = FlotaDPSerializer
+
+class DiarioDePescaPorFlotaView(APIView):
+    def get(self, request, flota_id):
+        diarios = DiarioDePesca.objects.filter(flotaDP_id=flota_id)
+        serializer = DiarioDePescaSerializer(diarios, many=True)
+        return Response(serializer.data)
 
 # ListCreateAPIView para CostoTripulacion
 class CostoTripulacionListCreateView(generics.ListCreateAPIView):
