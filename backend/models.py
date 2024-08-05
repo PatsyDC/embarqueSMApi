@@ -94,9 +94,13 @@ class FlotaDP(models.Model):
     horas_faena = models.CharField(max_length=255)
     kilos_declarados = models.DecimalField(max_digits=9, decimal_places=2)
     merluza = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    precio_merluza = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)#
     bereche = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    precio_bereche = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)#
     volador = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    precio_volador = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)#
     merluza_descarte = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    precio_merluzaNP = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)#
     otro = models.CharField(max_length=255, null=True, blank=True)
     kilo_otro = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     precio_otro = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True) #
