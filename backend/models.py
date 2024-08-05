@@ -121,11 +121,14 @@ class FlotaDP(models.Model):
     poliza_seguro = models.DecimalField(max_digits=9, decimal_places=2)#
     total_tripulacion =  models.DecimalField(max_digits=9, decimal_places=2)
     consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
+    costo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)#
     total_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
     galon_hora = models.DecimalField(max_digits=9, decimal_places=2) #
     consumo_hielo = models.DecimalField(max_digits=9, decimal_places=2)
     total_hielo = models.DecimalField(max_digits=9, decimal_places=2)
+    costo_hilo = models.DecimalField(max_digits=9, decimal_places=2)#
     consumo_agua = models.DecimalField(max_digits=9, decimal_places=2)
+    costo_agua = models.DecimalField(max_digits=9, decimal_places=2)#
     total_agua = models.DecimalField(max_digits=9, decimal_places=2)
     consumo_viveres = models.DecimalField(max_digits=9, decimal_places=2)
     total_vivieres = models.DecimalField(max_digits=9, decimal_places=2)

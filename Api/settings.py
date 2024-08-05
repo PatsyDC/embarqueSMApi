@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
-    'backend',
+    'backend.apps.BackendConfig',  # Solo esta entrada para backend
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
