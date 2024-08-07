@@ -202,6 +202,107 @@ class DiarioDePescaPorFlotaView(APIView):
         serializer = DiarioDePescaSerializer(diarios, many=True)
         return Response(serializer.data)
 
+class FlotasConLancesView(APIView):
+    def get(self, request):
+        response_data = []
+
+        # Obtener todas las flotas
+        flotas = FlotaDP.objects.all()
+        
+        # Recorrer todas las flotas
+        for flota in flotas:
+            # Serializar los datos de FlotaDP
+            flota_data = {
+                "id": flota.id,
+                "fecha": flota.fecha,
+                "tipo_cambio": flota.tipo_cambio,
+                "horas_faena": flota.horas_faena,
+                "kilos_declarados": flota.kilos_declarados,
+                "merluza": flota.merluza,
+                "precio_merluza": flota.precio_merluza,
+                "bereche": flota.bereche,
+                "precio_bereche": flota.precio_bereche,
+                "volador": flota.volador,
+                "precio_volador": flota.precio_volador,
+                "merluza_descarte": flota.merluza_descarte,
+                "precio_merluzaNP": flota.precio_merluzaNP,
+                "otro": flota.otro,
+                "kilo_otro": flota.kilo_otro,
+                "precio_otro": flota.precio_otro,
+                "toneladas_procesadas": flota.toneladas_procesadas,
+                "toneladas_recibidas": flota.toneladas_recibidas,
+                "costo_basico": flota.costo_basico,
+                "participacion": flota.participacion,
+                "bonificacion": flota.bonificacion,
+                "total_participacion": flota.total_participacion,
+                "aporte_REP": flota.aporte_REP,
+                "gratificacion": flota.gratificacion,
+                "vacaciones": flota.vacaciones,
+                "cts": flota.cts,
+                "essalud": flota.essalud,
+                "senati": flota.senati,
+                "SCTR_SAL": flota.SCTR_SAL,
+                "SCTR_PEN": flota.SCTR_PEN,
+                "poliza_seguro": flota.poliza_seguro,
+                "total_tripulacion": flota.total_tripulacion,
+                "consumo_gasolina": flota.consumo_gasolina,
+                "costo_gasolina": flota.costo_gasolina,
+                "total_gasolina": flota.total_gasolina,
+                "galon_hora": flota.galon_hora,
+                "consumo_hielo": flota.consumo_hielo,
+                "total_hielo": flota.total_hielo,
+                "costo_hilo": flota.costo_hilo,
+                "consumo_agua": flota.consumo_agua,
+                "costo_agua": flota.costo_agua,
+                "total_agua": flota.total_agua,
+                "consumo_viveres": flota.consumo_viveres,
+                "total_vivieres": flota.total_vivieres,
+                "dias_inspeccion": flota.dias_inspeccion,
+                "total_servicio_inspeccion": flota.total_servicio_inspeccion,
+                "total_derecho_pesca": flota.total_derecho_pesca,
+                "total_costo": flota.total_costo,
+                "costo_tm_captura": flota.costo_tm_captura,
+                "csot": flota.csot,
+                "embarcacion": flota.embarcacion.id,
+                "zona_pesca": flota.zona_pesca.id,
+                # Lista para almacenar los lances relacionados
+                "lances": []
+            }
+
+            # Obtener los lances asociados a esta flota
+            lances = DiarioDePesca.objects.filter(flotaDP_id=flota)
+
+            # Recorrer todos los lances asociados a esta flota
+            for lance in lances:
+                # Serializar los datos de DiarioDePesca
+                lance_data = {
+                    "id": lance.id,
+                    "embarcacion": lance.embarcacion,
+                    "especie": lance.especie,
+                    "fecha": lance.fecha,
+                    "numero_alcance": lance.numero_alcance,
+                    "estrato": lance.estrato,
+                    "profundidad": lance.profundidad,
+                    "tiempo_efectivo": lance.tiempo_efectivo,
+                    "rango_talla_inicial": lance.rango_talla_inicial,
+                    "rango_talla_final": lance.rango_talla_final,
+                    "moda": lance.moda,
+                    "porcentaje": lance.porcentaje,
+                    "ar": lance.ar,
+                    "numero": lance.numero,
+                    "zona_pesca": lance.zona_pesca.id,
+                    "flotaDP_id": lance.flotaDP_id.id
+                }
+
+                # Agregar el lance a la lista de lances en flota_data
+                flota_data["lances"].append(lance_data)
+
+            # Agregar la flota con sus lances al response_data
+            response_data.append(flota_data)
+
+        # Retornar la respuesta en formato JSON
+        return Response(response_data)
+
 # ListCreateAPIView para CostoTripulacion
 class CostoTripulacionListCreateView(generics.ListCreateAPIView):
     queryset = CostoTripulacion.objects.all()
