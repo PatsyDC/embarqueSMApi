@@ -232,7 +232,7 @@ class tonelasFlotaXTiempo(APIView):
         for data in toneladas_mensual:
             if data['total_toneladas_recibidas'] > 0:
                 data['porcentaje_procesadas'] = round(
-                    (data['total_toneladas_procesadas'] / data['total_toneladas_recibidas']) , 2
+                    (data['total_toneladas_procesadas'] / data['total_toneladas_recibidas']) * 100, 2
                 )
             else:
                 data['porcentaje_procesadas'] = 0
