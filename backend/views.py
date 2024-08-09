@@ -11,6 +11,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from django.db.models.functions import TruncWeek, TruncMonth
+from django.db.models import Sum
+from django.http import JsonResponse
 
 #------------Usuario--------------------
 from rest_framework.views import APIView
@@ -201,6 +204,45 @@ class DiarioDePescaPorFlotaView(APIView):
         diarios = DiarioDePesca.objects.filter(flotaDP_id=flota_id)
         serializer = DiarioDePescaSerializer(diarios, many=True)
         return Response(serializer.data)
+
+class tonelasFlotaXTiempo(APIView):
+    def get(self, request, *args, **kwargs):
+        # Agrupar por semana
+        toneladas_semanal = FlotaDP.objects.annotate(week=TruncWeek('fecha')).values('week').annotate(
+            total_toneladas_recibidas=Sum('toneladas_recibidas'),
+            total_toneladas_procesadas=Sum('toneladas_procesadas')
+        ).order_by('week')
+
+        # Calcular porcentaje para cada semana
+        for data in toneladas_semanal:
+            if data['total_toneladas_recibidas'] > 0:
+                data['porcentaje_procesadas'] = round(
+                    (data['total_toneladas_procesadas'] / data['total_toneladas_recibidas']) * 100 , 2
+                )
+            else:
+                data['porcentaje_procesadas'] = 0
+
+        # Agrupar por mes
+        toneladas_mensual = FlotaDP.objects.annotate(month=TruncMonth('fecha')).values('month').annotate(
+            total_toneladas_recibidas=Sum('toneladas_recibidas'),
+            total_toneladas_procesadas=Sum('toneladas_procesadas')
+        ).order_by('month')
+
+        # Calcular porcentaje para cada mes
+        for data in toneladas_mensual:
+            if data['total_toneladas_recibidas'] > 0:
+                data['porcentaje_procesadas'] = round(
+                    (data['total_toneladas_procesadas'] / data['total_toneladas_recibidas']) , 2
+                )
+            else:
+                data['porcentaje_procesadas'] = 0
+
+        # Devolver los resultados como JSON
+        data = {
+            'semanal': list(toneladas_semanal),
+            'mensual': list(toneladas_mensual)
+        }
+        return JsonResponse(data)
 
 class FlotasConLancesView(APIView):
     def get(self, request):
