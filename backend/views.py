@@ -372,16 +372,6 @@ class FlotasConLancesView(APIView):
         # Retornar la respuesta en formato JSON
         return Response(response_data)
 
-# ListCreateAPIView para CostoTripulacion
-class CostoTripulacionListCreateView(generics.ListCreateAPIView):
-    queryset = CostoTripulacion.objects.all()
-    serializer_class = CostoTripulacionSerializer
-
-# RetrieveUpdateDestroyAPIView para CostoTripulacion
-class CostoTripulacionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CostoTripulacion.objects.all()
-    serializer_class = CostoTripulacionSerializer
-
 #Derecho de pesca
 class DerechoPescaListCreateView(generics.ListCreateAPIView):
     queryset = DerechoPesca.objects.all()
@@ -390,17 +380,6 @@ class DerechoPescaListCreateView(generics.ListCreateAPIView):
 class DerechoPescaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DerechoPesca.objects.all()
     serializer_class = DerechoPescaSerializer
-
-#produccion toneladas 
-
-class ToneladasProduccionListCreateView(generics.ListCreateAPIView):
-    queryset = ToneladasProduccion.objects.all()
-    serializer_class = ToneladasProduccionSerializer
-
-class ToneladasProduccionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ToneladasProduccion.objects.all()
-    serializer_class = ToneladasProduccionSerializer
-
 #ejemplo:
 class ConsumoGasolinaListCreateView(generics.ListCreateAPIView):
     queryset = ConsumoGasolina.objects.all()

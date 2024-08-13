@@ -170,22 +170,6 @@ class DiarioDePesca(models.Model):
     def __str__(self):
         return f"{self.embarcacion} - {self.fecha}"
 
-class CostoTripulacion(models.Model):
-    costo_basico = models.DecimalField(max_digits=9, decimal_places=2)
-    participacion = models.DecimalField(max_digits=9, decimal_places=2)
-    bonificacion = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
-    total_participacion = models.DecimalField(max_digits=9, decimal_places=2)
-    aporte_REP= models.DecimalField(max_digits=9, decimal_places=2)
-    gratificacion = models.DecimalField(max_digits=9, decimal_places=2)
-    vacaciones = models.DecimalField(max_digits=9, decimal_places=2)
-    CTS = models.DecimalField(max_digits=9, decimal_places=2)
-    ESSALUD = models.DecimalField(max_digits=9, decimal_places=2)
-    SENATI = models.DecimalField(max_digits=9, decimal_places=2)
-    SCTR_SAL = models.DecimalField(max_digits=9, decimal_places=2)
-    SCTR_PEN = models.DecimalField(max_digits=9, decimal_places=2)
-    poliza_seguro = models.DecimalField(max_digits=9, decimal_places=2)
-    total_CT = models.DecimalField(max_digits=9, decimal_places=2)
-
 class ConsumoGasolina(models.Model):
     embarcacion = models.IntegerField()
     consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
@@ -195,19 +179,5 @@ class DerechoPesca(models.Model):
     item = models.CharField(max_length=255)
     costo = models.DecimalField(max_digits=9, decimal_places=2) 
 
-class ToneladasProduccion(models.Model):
-    dni = models.CharField(max_length=8, null=True, blank=True)
-    fecha = models.DateField()
-    embarcacion = models.ForeignKey(Embarcaciones,on_delete=models.CASCADE)
-    zona_pesca = models.ForeignKey(ZonaPesca,on_delete=models.CASCADE)
-    toneladas_procesables = models.DecimalField(max_digits=9, decimal_places=2)
-    toneladas_procesadas= models.DecimalField(max_digits=9, decimal_places=2)
-    toneladas_NP = models.DecimalField(max_digits=9, decimal_places=2)
 
-
-
-#class Consumo(models.Model):
-    #consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
-    #consumo_hielo = models.DecimalField(max_digits=9, decimal_places=2)
-    #consumo_agua = models.DecimalField(max_digits=9, decimal_places=2)
     

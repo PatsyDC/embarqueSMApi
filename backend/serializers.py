@@ -86,11 +86,6 @@ class FlotaDPSerializer(serializers.ModelSerializer):
         model = FlotaDP
         fields = '__all__'
 
-class CostoTripulacionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CostoTripulacion
-        fields = '__all__'
-
 class ConsumoGasolinaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConsumoGasolina
@@ -101,7 +96,3 @@ class DerechoPescaSerializer(serializers.ModelSerializer):
         model = DerechoPesca
         fields = '__all__'
 
-class ToneladasProduccionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ToneladasProduccion
-        fields = '__all__'

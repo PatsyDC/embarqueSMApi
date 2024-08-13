@@ -40,14 +40,10 @@ urlpatterns = [
     path('flotadp/', FlotaDPListCreateView.as_view(), name='flotadp_list_create'),
     path('flotadp/<int:pk>/', FlotaDPRetrieveUpdateDestroyView.as_view(), name='flotadp_detail'),
     path('flotadp/<int:pk>/update-toneladas/', FlotaDPPartialUpdateView.as_view(), name='flotadp_update_toneladas'),
-    path('costotripulacion/', CostoTripulacionListCreateView.as_view(), name='costotripulacion_list_create'),
-    path('costotripulacion/<int:pk>/', CostoTripulacionRetrieveUpdateDestroyView.as_view(), name='costotripulacion_detail'),
     path('consumo-gasolina/', ConsumoGasolinaListCreateView.as_view(), name='consumo-gasolina-list-create'),
     path('consumo-gasolina/<int:pk>/', ConsumoGasolinaRetrieveUpdateDestroyView.as_view(), name='consumo-gasolina-retrieve-update-destroy'),
     path('derechopescas/', DerechoPescaListCreateView.as_view(), name='derechopescas_list_create'),
     path('derechopescas/<int:pk>/', DerechoPescaRetrieveUpdateDestroyView.as_view(), name='derechopescas_retrieve_update_destroy'),
-    path('toneladas-produccion/', ToneladasProduccionListCreateView.as_view(), name='list-create-toneladas'),
-    path('toneladas-produccion/<int:pk>/', ToneladasProduccionRetrieveUpdateDestroyView.as_view(), name='retrieve-update-destroy-toneladas'),
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
