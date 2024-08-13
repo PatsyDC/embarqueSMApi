@@ -14,6 +14,7 @@ from rest_framework import viewsets
 from django.db.models.functions import TruncWeek, TruncMonth
 from django.db.models import Sum
 from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
 
 #------------Usuario--------------------
 from rest_framework.views import APIView
@@ -56,7 +57,22 @@ def obtain_tokens(request):
         }
 
         return Response(tokens, status=status.HTTP_200_OK)
-    
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCurrentUser(request):
+    user = request.user
+
+    # Obtener la URL completa de la imagen
+    full_image_url = None
+    if user.imagen_usuario:
+        full_image_url = request.build_absolute_uri(user.imagen_usuario.url)
+
+    # Serializar el usuario con la URL completa de la imagen
+    user_data = CustomUserSerializer(user, context={'request': request}).data
+    user_data['imagen_usuario'] = full_image_url
+
+    return Response(user_data) 
 
 # DIARIO DE PESCA
 class DiarioDePescaListView(generics.ListCreateAPIView):
@@ -198,6 +214,25 @@ class FlotaDPListCreateView(generics.ListCreateAPIView):
 class FlotaDPRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FlotaDP.objects.all()
     serializer_class = FlotaDPSerializer
+
+class FlotaDPPartialUpdateView(generics.UpdateAPIView):
+    queryset = FlotaDP.objects.all()
+    serializer_class = FlotaDPSerializer
+    http_method_names = ['patch']  # Solo permitir el método PATCH
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            # Solo actualizar los campos específicos
+            instance.toneladas_procesadas_produccion = serializer.validated_data.get('toneladas_procesadas_produccion', instance.toneladas_procesadas_produccion)
+            instance.toneladas_NP = serializer.validated_data.get('toneladas_NP', instance.toneladas_NP)
+            instance.save()
+            
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DiarioDePescaPorFlotaView(APIView):
     def get(self, request, flota_id):
@@ -355,6 +390,16 @@ class DerechoPescaListCreateView(generics.ListCreateAPIView):
 class DerechoPescaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DerechoPesca.objects.all()
     serializer_class = DerechoPescaSerializer
+
+#produccion toneladas 
+
+class ToneladasProduccionListCreateView(generics.ListCreateAPIView):
+    queryset = ToneladasProduccion.objects.all()
+    serializer_class = ToneladasProduccionSerializer
+
+class ToneladasProduccionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ToneladasProduccion.objects.all()
+    serializer_class = ToneladasProduccionSerializer
 
 #ejemplo:
 class ConsumoGasolinaListCreateView(generics.ListCreateAPIView):

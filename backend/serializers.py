@@ -7,7 +7,7 @@ from .models import *
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'dni', 'idgeneral', 'nombrey_apellido', 'jefe_inmediato', 'cargo', 'area', 'tipo_usurio', 'password']
+        fields = ['id', 'dni', 'idgeneral', 'nombrey_apellido', 'cargo', 'area', 'tipo_usurio', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -99,4 +99,9 @@ class ConsumoGasolinaSerializer(serializers.ModelSerializer):
 class DerechoPescaSerializer(serializers.ModelSerializer):
     class Meta:
         model = DerechoPesca
+        fields = '__all__'
+
+class ToneladasProduccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ToneladasProduccion
         fields = '__all__'

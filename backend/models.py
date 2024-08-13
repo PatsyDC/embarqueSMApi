@@ -20,15 +20,25 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(dni, nombrey_apellido, password, **extra_fields)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    USER_TYPE_ADMIN = 'ADMIN'
+    USER_TYPE_EMBARCACIONES = 'Embarcaciones'
+    USER_TYPE_PROCESO = 'Proceso'
+    
+    USER_TYPE_CHOICES = [
+        (USER_TYPE_ADMIN, 'Admin'),
+        (USER_TYPE_EMBARCACIONES, 'Embarcaciones'),
+        (USER_TYPE_PROCESO, 'Proceso'),
+    ]
+
     id = models.AutoField(primary_key=True)
     dni = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
     idgeneral = models.CharField(max_length=50, blank=True, null=True)
     nombrey_apellido = models.CharField(max_length=100)
-    jefe_inmediato = models.CharField(max_length=100, blank=True, null=True)
+    imagen_usuario = models.ImageField(upload_to='usuarios', blank=True, null=True)
     cargo = models.CharField(max_length=100, blank=True, null=True)
     area = models.CharField(max_length=100, blank=True, null=True)
-    tipo_usurio = models.CharField(max_length=50)
+    tipo_usurio = models.CharField(max_length=50, choices=USER_TYPE_CHOICES)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -40,8 +50,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
+
     def __str__(self):
         return self.nombrey_apellido
+
 
 class Embarcaciones(models.Model):
     nombre = models.CharField(max_length=255)
@@ -131,7 +143,10 @@ class FlotaDP(models.Model):
     total_costo = models.DecimalField(max_digits=9, decimal_places=2)
     costo_tm_captura = models.DecimalField(max_digits=9, decimal_places=2)
     csot = models.DecimalField(max_digits=9, decimal_places=2)
-
+    ###
+    toneladas_procesadas_produccion= models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    toneladas_NP = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    
     def __str__(self):
         return f'{self.fecha} - {self.embarcacion} - {self.zona_pesca}'
 
@@ -179,6 +194,17 @@ class ConsumoGasolina(models.Model):
 class DerechoPesca(models.Model):
     item = models.CharField(max_length=255)
     costo = models.DecimalField(max_digits=9, decimal_places=2) 
+
+class ToneladasProduccion(models.Model):
+    dni = models.CharField(max_length=8, null=True, blank=True)
+    fecha = models.DateField()
+    embarcacion = models.ForeignKey(Embarcaciones,on_delete=models.CASCADE)
+    zona_pesca = models.ForeignKey(ZonaPesca,on_delete=models.CASCADE)
+    toneladas_procesables = models.DecimalField(max_digits=9, decimal_places=2)
+    toneladas_procesadas= models.DecimalField(max_digits=9, decimal_places=2)
+    toneladas_NP = models.DecimalField(max_digits=9, decimal_places=2)
+
+
 
 #class Consumo(models.Model):
     #consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
