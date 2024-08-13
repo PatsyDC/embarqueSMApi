@@ -295,6 +295,7 @@ class FlotasConLancesView(APIView):
                 "tipo_cambio": flota.tipo_cambio,
                 "horas_faena": flota.horas_faena,
                 "kilos_declarados": flota.kilos_declarados,
+                "especie": flota.especie,
                 "otro": flota.otro,
                 "kilo_otro": flota.kilo_otro,
                 "precio_otro": flota.precio_otro,

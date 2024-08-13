@@ -56,14 +56,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Embarcaciones(models.Model):
-    nombre = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255, unique=True)
     costo_zarpe = models.DecimalField(max_digits=8, decimal_places=2)
     bonificacion = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     fecha = models.DateField()
     boner = models.DecimalField(max_digits=8, decimal_places=2)
 
 class Especies(models.Model):
-    nombre = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255, unique=True)
     precio = models.IntegerField()
     fecha = models.DateField()
 
@@ -100,7 +100,7 @@ class CostoTipoCambio(models.Model):
 
 class FlotaDP(models.Model):                                                      
     fecha = models.DateField()
-    tipo_cambio = models.DecimalField(max_digits=9, decimal_places=2)
+    tipo_cambio = models.DecimalField(max_digits=11, decimal_places=3)
     embarcacion = models.ForeignKey(Embarcaciones,on_delete=models.CASCADE)
     zona_pesca = models.ForeignKey(ZonaPesca,on_delete=models.CASCADE)
     horas_faena = models.CharField(max_length=255)
@@ -126,15 +126,15 @@ class FlotaDP(models.Model):
     poliza_seguro = models.DecimalField(max_digits=9, decimal_places=2)#
     total_tripulacion =  models.DecimalField(max_digits=9, decimal_places=2)
     consumo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
-    costo_gasolina = models.DecimalField(max_digits=9, decimal_places=2)#
-    total_gasolina = models.DecimalField(max_digits=9, decimal_places=2)
+    costo_gasolina = models.DecimalField(max_digits=11, decimal_places=3)
+    total_gasolina = models.DecimalField(max_digits=11, decimal_places=3)
     galon_hora = models.DecimalField(max_digits=9, decimal_places=2) #
     consumo_hielo = models.DecimalField(max_digits=9, decimal_places=2)
-    total_hielo = models.DecimalField(max_digits=9, decimal_places=2)
-    costo_hilo = models.DecimalField(max_digits=9, decimal_places=2)#
+    total_hielo = models.DecimalField(max_digits=11, decimal_places=3)
+    costo_hilo = models.DecimalField(max_digits=11, decimal_places=3)#
     consumo_agua = models.DecimalField(max_digits=9, decimal_places=2)
-    costo_agua = models.DecimalField(max_digits=9, decimal_places=2)#
-    total_agua = models.DecimalField(max_digits=9, decimal_places=2)
+    costo_agua = models.DecimalField(max_digits=11, decimal_places=3)#
+    total_agua = models.DecimalField(max_digits=11, decimal_places=3)
     consumo_viveres = models.DecimalField(max_digits=9, decimal_places=2)
     total_vivieres = models.DecimalField(max_digits=9, decimal_places=2)
     dias_inspeccion = models.DecimalField(max_digits=9, decimal_places=2)

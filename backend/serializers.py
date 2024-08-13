@@ -35,11 +35,21 @@ class EmbarcacionesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Embarcaciones
         fields = '__all__'
+    def create(self, validated_data):
+        nombre = validated_data.get('nombre')
+        if Embarcaciones.objects.filter(nombre=nombre).exists():
+            raise serializers.ValidationError({"nombre": "Una embarcación con este nombre ya está registrada."})
+        return super().create(validated_data)
 
 class EspeciesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especies
         fields = '__all__'
+    def create(self, validated_data):
+        nombre = validated_data.get('nombre')
+        if Especies.objects.filter(nombre=nombre).exists():
+            raise serializers.ValidationError({"nombre": "Una especie con este nombre ya está registrada."})
+        return super().create(validated_data)
 
 class ZonaPescaSerializer(serializers.ModelSerializer):
     class Meta:
