@@ -336,7 +336,9 @@ class FlotasConLancesView(APIView):
                 "embarcacion": flota.embarcacion.id,
                 "zona_pesca": flota.zona_pesca.id,
                 # Lista para almacenar los lances relacionados
-                "lances": []
+                "lances": [],
+                "toneladas_procesadas_produccion": flota.toneladas_procesadas_produccion,
+                "toneladas_NP": flota.toneladas_NP
             }
 
             # Obtener los lances asociados a esta flota

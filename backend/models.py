@@ -158,7 +158,7 @@ class DiarioDePesca(models.Model):
     zona_pesca = models.ForeignKey(ZonaPesca,on_delete=models.CASCADE)
     estrato = models.CharField(max_length=255)
     profundidad = models.IntegerField()
-    tiempo_efectivo = models.TimeField()
+    tiempo_efectivo = models.DecimalField(max_digits=9, decimal_places=2)
     rango_talla_inicial = models.IntegerField()
     rango_talla_final = models.IntegerField()
     moda = models.IntegerField()
