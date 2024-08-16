@@ -12,5 +12,7 @@ def update_diario_pesca(sender, instance, **kwargs):
         diario.embarcacion = instance.embarcacion.id
         diario.fecha = instance.fecha
         diario.zona_pesca = instance.zona_pesca
+        diario.p_flota_dolares = instance.costo_cap_x_dolar
+        diario.t_flota = instance.toneladas_recibidas
         # Actualiza otros campos según sea necesario
         diario.save()

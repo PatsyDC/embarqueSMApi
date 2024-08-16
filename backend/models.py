@@ -146,6 +146,7 @@ class FlotaDP(models.Model):
     ###
     toneladas_procesadas_produccion= models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     toneladas_NP = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    costo_cap_x_dolar = models.DecimalField(max_digits=11, decimal_places=2)
     
     def __str__(self):
         return f'{self.fecha} - {self.embarcacion} - {self.zona_pesca}'
@@ -164,8 +165,11 @@ class DiarioDePesca(models.Model):
     moda = models.IntegerField()
     porcentaje = models.DecimalField(max_digits=9, decimal_places=2)
     ar = models.IntegerField()
-    numero = models.IntegerField()
+    numero = models.DecimalField(max_digits=11, decimal_places=2)
     flotaDP_id = models.ForeignKey(FlotaDP,on_delete=models.CASCADE)
+    p_flota_dolares = models.DecimalField(max_digits=11, decimal_places=2)
+    t_flota = models.DecimalField(max_digits=11, decimal_places=2)
+    precio_lances = models.DecimalField(max_digits=11, decimal_places=2)
 
     def __str__(self):
         return f"{self.embarcacion} - {self.fecha}"
