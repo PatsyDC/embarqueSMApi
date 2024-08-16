@@ -367,7 +367,10 @@ class FlotasConLancesView(APIView):
                     "ar": lance.ar,
                     "numero": lance.numero,
                     "zona_pesca": lance.zona_pesca.id,
-                    "flotaDP_id": lance.flotaDP_id.id
+                    "flotaDP_id": lance.flotaDP_id.id,
+                    "p_flota_dolares": lance.p_flota_dolares,
+                    "t_flota": lance.t_flota,
+                    "precio_lances": lance.precio_lances
                 }
 
                 # Agregar el lance a la lista de lances en flota_data
