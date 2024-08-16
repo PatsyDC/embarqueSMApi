@@ -129,6 +129,10 @@ class ZonaPescaListCreateView(generics.ListCreateAPIView):
     queryset = ZonaPesca.objects.all()
     serializer_class = ZonaPescaSerializer
 
+class ZonaPescaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ZonaPesca.objects.all()
+    serializer_class = ZonaPescaSerializer
+
 #TarifaCosto
 class TarifaCostoListCreateView(generics.ListCreateAPIView):
     queryset = TarifasCostos.objects.all()

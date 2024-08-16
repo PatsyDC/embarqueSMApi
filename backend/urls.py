@@ -23,6 +23,7 @@ urlpatterns = [
     path('especies/<int:pk>/', EspeciesRetrieveUpdateDestroyView.as_view(), name='especies-crud'),
     path('especies/precio/<str:nombre>/', EspeciesPrecioView.as_view(), name='especies-precio'),
     path('zona-pesca/', ZonaPescaListCreateView.as_view(), name='zona-pesca-create'),
+    path('zona-pesca/<int:pk>/', ZonaPescaRetrieveUpdateDestroyView.as_view(), name='zona-crud'),
     path('tarifa-costo/', TarifaCostoListCreateView.as_view(), name='tarifa-costo-create'),
     path('tarifa-costo/<int:pk>/', TarifaCostoDetailView.as_view(), name='t_c_detail'),
     path('tarifa-costo/tarifa/<str:nombre_t>/', TarifaCostoView.as_view(), name='tarifa_costo'),
